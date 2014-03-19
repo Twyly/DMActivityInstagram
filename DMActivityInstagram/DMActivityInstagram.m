@@ -10,7 +10,6 @@
 
 @interface DMActivityInstagram()
 
-@property (strong, nonatomic) UIView *presentingView;
 
 @end
 
