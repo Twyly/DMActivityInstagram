@@ -61,6 +61,7 @@
             self.resizeController.skipCropping = YES;
         }
     }
+    NSLog(@"Testing!");
     return self.resizeController;
 }
 
