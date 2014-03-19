@@ -8,6 +8,12 @@
 
 #import "DMActivityInstagram.h"
 
+@interface DMActivityInstagram()
+
+@property (strong, nonatomic) UIView *presentingView;
+
+@end
+
 @implementation DMActivityInstagram
 
 - (NSString *)activityType {
@@ -20,6 +26,16 @@
 
 - (UIImage *)activityImage {
     return [UIImage imageNamed:@"instagram.png"];
+}
+
+- (instancetype)initWithPresentingView:(UIView *)presentingView
+{
+    self = [self init];
+    if (self) {
+        _presentingView = presentingView;
+    }
+    
+    return self;
 }
 
 
@@ -53,16 +69,17 @@
 }
 
 - (UIViewController *)activityViewController {
-    // resize controller if resize is required.
-    if (!self.resizeController) {
-        self.resizeController = [[DMResizerViewController alloc] initWithImage:self.shareImage andDelegate:self];
-        
-        if ([self imageIsSquare:self.shareImage]) {
-            self.resizeController.skipCropping = YES;
-        }
-    }
-    NSLog(@"Testing!");
-    return self.resizeController;
+//    // resize controller if resize is required.
+//    if (!self.resizeController) {
+//        self.resizeController = [[DMResizerViewController alloc] initWithImage:self.shareImage andDelegate:self];
+//        
+//        if ([self imageIsSquare:self.shareImage]) {
+//            self.resizeController.skipCropping = YES;
+//        }
+//    }
+//    return self.resizeController;
+    
+    return nil;
 }
 
 -(void)resizer:(DMResizerViewController *)resizer finishedResizingWithResult:(UIImage *)image {
@@ -110,7 +127,10 @@
     [self.documentController setUTI:@"com.instagram.exclusivegram"];
     if (self.shareString) [self.documentController setAnnotation:@{@"InstagramCaption" : self.shareString}];
     
-    if (![self.documentController presentOpenInMenuFromBarButtonItem:self.presentFromButton animated:YES]) NSLog(@"couldn't present document interaction controller");
+    //if (![self.documentController presentOpenInMenuFromBarButtonItem:self.presentFromButton animated:YES]) NSLog(@"couldn't present document interaction controller");
+    
+    if (![self.documentController presentOpenInMenuFromRect:CGRectZero inView:self.presentingView animated:YES]) NSLog(@"Couldn't present document interaction controller");
+    
 }
 
 -(void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application {

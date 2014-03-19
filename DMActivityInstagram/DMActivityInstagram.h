@@ -23,4 +23,9 @@
 
 @property (nonatomic, strong) UIDocumentInteractionController *documentController;
 
+
+// Changed to return nil for activityViewController and perform Action to presnt from presenting view
+
+- (instancetype)initWithPresentingView:(UIView *)presentingView;
+
 @end
